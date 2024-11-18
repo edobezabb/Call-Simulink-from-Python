@@ -2,6 +2,8 @@
 
 % By Murali Yeddanapudi on 04-Mar-2022
 
+clear; 
+
 %% 1st sim: with default parameter values
 res{1} = sim_the_model();
 
@@ -29,6 +31,17 @@ u = [0 2 zeros(1,3) -2*ones(1,2) 0];
 res{end+1} = sim_the_model(TunableParameters=tunablePrms, ...
                            ExternalInput=u);
 
+%% 5th sim: use a stop condition
+u = [0 2 zeros(1,3) -2*ones(1,2) 0];
+res{end+1} = sim_the_model('OutputFcn', @x1LessThanZero, ExternalInput=u);
+
 %% Plot some results from the simulations
 plot_results(res, 'Results from calling sim_the_model in MATLAB');
 
+function stopRequested = x1LessThanZero(simTime, res)
+    if res.x1.Data < 0
+        stopRequested = true;
+    else
+        stopRequested = false;
+    end
+end

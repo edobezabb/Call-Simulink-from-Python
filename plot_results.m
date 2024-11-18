@@ -21,6 +21,11 @@ title(plotTitle,'Interpreter','none');
 set(get(gca,'Children'),'LineWidth',2);
 legend('Location','southeast');
 
+figHndl = figure; hold on; cols = colororder;
+plot(res{5}.x1.Time, res{5}.x1.Data, 'Color', cols(5,:), ...
+    'DisplayName', 'x1 from 5th sim');
+title('x1 value from 5th sim. Should stop when x1 < 0','Interpreter','none');
+
 end
 
 % To call this MATLAB function from Python make sure to install the correct version of Python
